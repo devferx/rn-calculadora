@@ -8,16 +8,15 @@ interface Props {
 }
 
 export const ButtonCalc = ({text, color = '#333333', width = 80}: Props) => {
+  const btnTextStyle = {
+    ...styles.btnText,
+    color: color === '#9B9B9B' ? 'black' : 'white',
+  };
+
   return (
     <TouchableOpacity>
       <View style={{...styles.btn, width, backgroundColor: color}}>
-        <Text
-          style={{
-            ...styles.btnText,
-            color: color === '#9B9B9B' ? 'black' : 'white',
-          }}>
-          {text}
-        </Text>
+        <Text style={btnTextStyle}>{text}</Text>
       </View>
     </TouchableOpacity>
   );
