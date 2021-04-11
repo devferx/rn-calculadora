@@ -10,6 +10,12 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 20,
     justifyContent: 'flex-end',
   },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 18,
+    paddingHorizontal: 10,
+  },
   text: {
     color: 'white',
     fontSize: 60,
@@ -19,19 +25,5 @@ export const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, 0.5)',
     fontSize: 30,
     textAlign: 'right',
-  },
-  btn: {
-    width: 80,
-    height: 80,
-    backgroundColor: '#333333',
-    borderRadius: 100,
-    justifyContent: 'center',
-  },
-  btnText: {
-    textAlign: 'center',
-    padding: 10,
-    fontSize: 30,
-    color: 'white',
-    fontWeight: '300',
   },
 });
