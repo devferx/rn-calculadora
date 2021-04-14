@@ -5,16 +5,22 @@ interface Props {
   text: string;
   color?: '#9B9B9B' | '#FF9427' | '#333333';
   width?: number;
+  onPress: (numberText: string) => void;
 }
 
-export const ButtonCalc = ({text, color = '#333333', width = 80}: Props) => {
+export const ButtonCalc = ({
+  text,
+  color = '#333333',
+  width = 80,
+  onPress,
+}: Props) => {
   const btnTextStyle = {
     ...styles.btnText,
     color: color === '#9B9B9B' ? 'black' : 'white',
   };
 
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => onPress(text)}>
       <View style={{...styles.btn, width, backgroundColor: color}}>
         <Text style={btnTextStyle}>{text}</Text>
       </View>
