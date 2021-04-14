@@ -1,15 +1,24 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {Text, View} from 'react-native';
 import {ButtonCalc} from '../components/button-calc';
 
 import {styles} from '../theme/app-theme';
 
+enum Operadores {
+  sumar,
+  restar,
+  multiplicar,
+  dividir,
+}
+
 export const CalculadoraScreen = () => {
   const [prevNumber, setPrevNumber] = useState('0');
   const [number, setNumber] = useState('100');
+  const lastCalc = useRef<Operadores>();
 
   const clean = () => {
     setNumber('0');
+    setPrevNumber('0');
   };
 
   const createNumber = (numberText: string) => {
@@ -63,9 +72,40 @@ export const CalculadoraScreen = () => {
     }
   };
 
+  const setNumberToPrevNumber = () => {
+    if (number.endsWith('.')) {
+      setPrevNumber(number.slice(0, -1));
+    } else {
+      setPrevNumber(number);
+    }
+
+    setNumber('0');
+  };
+
+  const btnSumar = () => {
+    setNumberToPrevNumber();
+    lastCalc.current = Operadores.sumar;
+  };
+
+  const btnRestar = () => {
+    setNumberToPrevNumber();
+    lastCalc.current = Operadores.restar;
+  };
+
+  const btnMultiplicar = () => {
+    setNumberToPrevNumber();
+    lastCalc.current = Operadores.multiplicar;
+  };
+
+  const btnDividir = () => {
+    setNumberToPrevNumber();
+    lastCalc.current = Operadores.dividir;
+  };
+
   return (
     <View style={styles.calculadoraContainer}>
-      <Text style={styles.smallText}>{prevNumber}</Text>
+      {prevNumber !== '0' && <Text style={styles.smallText}>{prevNumber}</Text>}
+
       <Text style={styles.text} numberOfLines={1} adjustsFontSizeToFit={true}>
         {number}
       </Text>
@@ -74,25 +114,25 @@ export const CalculadoraScreen = () => {
         <ButtonCalc text="C" color="#9B9B9B" onPress={clean} />
         <ButtonCalc text="+/-" color="#9B9B9B" onPress={positivoNegativo} />
         <ButtonCalc text="del" color="#9B9B9B" onPress={btnDelete} />
-        <ButtonCalc text="/" color="#FF9427" onPress={clean} />
+        <ButtonCalc text="/" color="#FF9427" onPress={btnDividir} />
       </View>
       <View style={styles.row}>
         <ButtonCalc text="7" onPress={createNumber} />
         <ButtonCalc text="8" onPress={createNumber} />
         <ButtonCalc text="9" onPress={createNumber} />
-        <ButtonCalc text="X" color="#FF9427" onPress={clean} />
+        <ButtonCalc text="X" color="#FF9427" onPress={btnMultiplicar} />
       </View>
       <View style={styles.row}>
         <ButtonCalc text="4" onPress={createNumber} />
         <ButtonCalc text="5" onPress={createNumber} />
         <ButtonCalc text="6" onPress={createNumber} />
-        <ButtonCalc text="-" color="#FF9427" onPress={clean} />
+        <ButtonCalc text="-" color="#FF9427" onPress={btnRestar} />
       </View>
       <View style={styles.row}>
         <ButtonCalc text="1" onPress={createNumber} />
         <ButtonCalc text="2" onPress={createNumber} />
         <ButtonCalc text="3" onPress={createNumber} />
-        <ButtonCalc text="+" color="#FF9427" onPress={clean} />
+        <ButtonCalc text="+" color="#FF9427" onPress={btnSumar} />
       </View>
       <View style={styles.row}>
         <ButtonCalc text="0" width={180} onPress={createNumber} />
