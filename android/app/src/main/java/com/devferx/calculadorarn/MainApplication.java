@@ -1,4 +1,4 @@
-package com.calculadora;
+package com.devferx.calculadorarn;
 
 // react-native-splash-screen >= 0.3.1
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
@@ -65,7 +65,7 @@ public class MainApplication extends Application implements ReactApplication {
          We use reflection here to pick up the class that initializes Flipper,
         since Flipper library is not available in release mode
         */
-        Class<?> aClass = Class.forName("com.calculadora.ReactNativeFlipper");
+        Class<?> aClass = Class.forName("com.devferx.calculadorarn.ReactNativeFlipper");
         aClass
             .getMethod("initializeFlipper", Context.class, ReactInstanceManager.class)
             .invoke(null, context, reactInstanceManager);
